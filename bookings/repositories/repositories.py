@@ -1,5 +1,5 @@
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
-from ..models import Room, Booking
+from ..models.models import Room, Booking
 
 
 class RoomRepository:
@@ -73,12 +73,7 @@ class BookingRepository:
     @staticmethod
     def create_booking(room_id: int, start_date, end_date) -> Booking:
         """Создать новое бронирование"""
-        room = RoomRepository.get_room(room_id)
-        
-        # Проверка на пересечение дат
-        if BookingRepository.check_booking_conflict(room_id, start_date, end_date):
-            raise ValidationError("Room already booked for these dates")
-        
+        room = RoomRepository.get_room(room_id)               
         booking = Booking(room=room, start_date=start_date, end_date=end_date)
         booking.full_clean()
         booking.save()

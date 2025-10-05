@@ -1,3 +1,6 @@
+# Envieroment
+.env*
+
 # Python cache
 __pycache__/
 *.pyc
@@ -12,3 +15,6 @@ db.sqlite3
 media/
 staticfiles/
 *.log
+
+# Venv
+.venv/

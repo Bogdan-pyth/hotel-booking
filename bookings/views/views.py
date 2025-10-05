@@ -8,7 +8,6 @@ from ..services.services import RoomService, BookingService
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def add_room(request: HttpRequest) -> JsonResponse:
     """rooms/add"""
     try:
@@ -26,7 +25,6 @@ def add_room(request: HttpRequest) -> JsonResponse:
 
 
 @csrf_exempt
-@require_http_methods(["DELETE"])   
 def delete_room(request: HttpRequest, room_id: int) -> JsonResponse:
     """rooms/delete/<int:room_id>"""
     try:
@@ -61,7 +59,6 @@ def get_room_list(request: HttpRequest) -> JsonResponse:
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def add_booking(request: HttpRequest) -> JsonResponse:
     """bookings/add"""
     try:
@@ -81,7 +78,6 @@ def add_booking(request: HttpRequest) -> JsonResponse:
 
 
 @csrf_exempt
-@require_http_methods(["DELETE"])
 def delete_booking(request: HttpRequest, booking_id: int) -> JsonResponse:
     """bookings/delete/<int:booking_id>"""
     try:

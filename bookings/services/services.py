@@ -28,6 +28,14 @@ class BookingService:
     def create_booking(data: dict):
         """Создание бронирования (бизнес-логика)"""
         validated_data = BookingSerializer.validate_booking_data(data)
+
+        if BookingRepository.check_booking_conflict(
+            validated_data["room_id"],
+            validated_data["start_date"],
+            validated_data["end_date"]
+        ):
+            raise ValidationError("Room already booked for these dates")
+        
         return BookingRepository.create_booking(
             room_id=validated_data["room_id"],
             start_date=validated_data["start_date"],

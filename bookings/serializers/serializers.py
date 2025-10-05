@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Any
 from django.core.exceptions import ValidationError
 from django.http import JsonResponse
+from decimal import Decimal
 
 
 class BookingSerializer:
@@ -23,6 +24,10 @@ class BookingSerializer:
         if start_date >= end_date:
             raise ValidationError("end_date must be after start_date")
         
+        today = datetime.now().date()
+        if start_date < today:
+            raise ValidationError("Cannot book in the past")
+        
         return {
             "room_id": data["room_id"],
             "start_date": start_date,
@@ -38,6 +43,13 @@ class RoomSerializer:
             raise ValidationError("description is required")
         if not data.get("price_per_night"):
             raise ValidationError("price_per_night is required")
+        
+        try:
+            price = Decimal(str(data["price_per_night"]))
+            if price <= 0:
+                raise ValidationError("price_per_night must be positive")
+        except (ValueError, TypeError):
+            raise ValidationError("price_per_night must be a valid number")
         
         return {
             "description": data["description"],
