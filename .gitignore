@@ -1,0 +1,20 @@
+# Envieroment
+.env*
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.python-version
+
+# Ruff cache
+.ruff_cache/
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+*.log
+
+# Venv
+.venv/
